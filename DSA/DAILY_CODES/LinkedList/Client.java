@@ -52,6 +52,29 @@ class SinglyLinkedList{
 		}
 	}
 
+	void addAtPos(int pos, int data){
+
+
+		if(pos <= 0 || pos > countNode() + 1){
+			System.out.println("Enter Valid Position");
+		}else if(pos == 1){
+			addAtFirst(data);
+		}else if(pos == countNode() + 1){
+			addAtLast(data);
+		}
+		else{
+			Node newNode = new Node(data);
+			Node temp = head;
+			while(pos-2 > 0){
+				temp = temp.next;
+				pos--;
+			}
+
+			newNode.next = temp.next;
+			temp.next = newNode;
+		}
+	}
+
 
 	int countNode(){
 
@@ -116,6 +139,26 @@ class SinglyLinkedList{
 		}
 	}
 
+	void delAtPos(int pos){
+
+		if(pos <= 0 || countNode() < pos){
+			System.out.println("Enter Valid Position");
+		}else if(pos == 1){
+			delFirst();
+		}else if(pos == countNode()){
+			delLast();
+		}else{
+			Node temp = head;
+			while(pos-2 > 0){
+				temp = temp.next;
+				pos--;
+			}
+			temp.next = temp.next.next;
+		}
+
+
+	}
+
 }
 
 
@@ -130,11 +173,13 @@ class Client{
 
 			System.out.println("1.AddFirst");
 			System.out.println("2.AddLast");
-			System.out.println("3.delFirst");
-			System.out.println("4.delLast");
-			System.out.println("5.count");
-			System.out.println("6.print");
-			System.out.println("7.Exit");
+			System.out.println("3.AddAtPosition");
+			System.out.println("4.delFirst");
+			System.out.println("5.delLast");
+			System.out.println("6.delAtPos");
+			System.out.println("7.count");
+			System.out.println("8.print");
+			System.out.println("9.Exit");
 			System.out.println();
 			System.out.print("Enter your choice : ");
 
@@ -151,15 +196,25 @@ class Client{
 				int data = sc.nextInt();
 				sll.addAtLast(data);
 			}else if(ch == 3){
-				sll.delFirst();
+				System.out.print("Enter Data : ");
+				int data = sc.nextInt();
+				System.out.print("Enter Position : ");
+				int pos = sc.nextInt();
+				sll.addAtPos(pos,data);
 			}else if(ch == 4){
-				sll.delLast();
+				sll.delFirst();
 			}else if(ch == 5){
-				System.out.println(sll.countNode());
+				sll.delLast();
 			}else if(ch == 6){
+				System.out.print("Enter Position : ");
+				int pos = sc.nextInt();
+				sll.delAtPos(pos);
+			}else if(ch == 7){
+				System.out.println(sll.countNode());
+			}else if(ch == 8){
 				sll.printSLL();
 				System.out.println();
-			}else if(ch == 7){
+			}else if(ch == 9){
 				break;
 			}
 
